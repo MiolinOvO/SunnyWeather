@@ -11,6 +11,14 @@
         android:layout_height="70dp"
         android:fitsSystemWindows="true">
 
+        <Button
+            android:id="@+id/navBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_home" />
+
         <TextView
             android:id="@+id/placeName"
             android:layout_width="wrap_content"
@@ -21,7 +29,7 @@
             android:singleLine="true"
             android:ellipsize="middle"
             android:textColor="#fff"
-            android:textSize="22sp"/>
+            android:textSize="22sp" />
 
     </FrameLayout>
 
@@ -29,16 +37,16 @@
         android:id="@+id/bodyLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/currentTemp"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:textColor="#fff"
-            android:textSize="70sp"/>
+            android:textSize="70sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -51,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -59,7 +67,7 @@
                 android:layout_marginStart="13dp"
                 android:textColor="#fff"
                 android:textSize="18sp"
-                android:text="|"/>
+                android:text="|" />
 
             <TextView
                 android:id="@+id/currentAQI"
@@ -67,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
                 android:textColor="#fff"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
         </LinearLayout>
 
