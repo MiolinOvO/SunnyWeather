@@ -1,6 +1,7 @@
 package com.sunnyweather.android.ui.weather
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -61,6 +62,7 @@ class WeatherActivity : AppCompatActivity() {
         swipeRefresh.setOnRefreshListener {
             refreshWeather()
         }
+
         navBtn.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
@@ -87,6 +89,7 @@ class WeatherActivity : AppCompatActivity() {
         placeName.text = viewModel.placeName
         val realtime = weather.realtime
         val daily = weather.daily
+
         // 填充now.xml布局中数据
         val currentTempText = "${realtime.temperature.toInt()} ℃"
         currentTemp.text = currentTempText
@@ -94,6 +97,7 @@ class WeatherActivity : AppCompatActivity() {
         val currentPM25Text = "空气指数 ${realtime.airQuality.aqi.chn.toInt()}"
         currentAQI.text = currentPM25Text
         nowLayout.setBackgroundResource(getSky(realtime.skycon).bg)
+
         // 填充forecast.xml布局中的数据
         forecastLayout.removeAllViews()
         val days = daily.skycon.size
@@ -114,6 +118,7 @@ class WeatherActivity : AppCompatActivity() {
             temperatureInfo.text = tempText
             forecastLayout.addView(view)
         }
+
         // 填充life_index.xml布局中的数据
         val lifeIndex = daily.lifeIndex
         coldRiskText.text = lifeIndex.coldRisk[0].desc
@@ -121,6 +126,15 @@ class WeatherActivity : AppCompatActivity() {
         ultravioletText.text = lifeIndex.ultraviolet[0].desc
         carWashingText.text = lifeIndex.carWashing[0].desc
         weatherLayout.visibility = View.VISIBLE
+
+        // 启动前台Service
+        val intent = Intent(this, ForegroundService::class.java)
+        intent.putExtra("place_name", viewModel.placeName)
+        intent.putExtra("current_temp", currentTempText)
+        intent.putExtra("current_sky", getSky(realtime.skycon).info)
+        intent.putExtra("current_aqi", currentPM25Text)
+        intent.putExtra("current_icon", getSky(realtime.skycon).icon)
+        startService(intent)
     }
 
 }
