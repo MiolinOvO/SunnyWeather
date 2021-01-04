@@ -41,9 +41,9 @@
         android:layout_gravity="start"
         android:clickable="true"
         android:focusable="true"
-        android:background="@color/design_default_color_primary">
+        android:background="@color/design_default_color_secondary_variant">
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/placeFragment"
             android:name="com.sunnyweather.android.ui.place.PlaceFragment"
             android:layout_width="match_parent"

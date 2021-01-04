@@ -1,5 +1,6 @@
 package com.sunnyweather.android.ui.place
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,6 +29,16 @@ class PlaceFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+//        val mainActivity = activity as MainActivity
+//        val placeName = mainActivity.getLocationInfo()
+//
+//        if (placeName.isNullOrEmpty()){
+//            Toast.makeText(context, "没有字", Toast.LENGTH_LONG).show()
+//        } else {
+//            Toast.makeText(context, placeName, Toast.LENGTH_LONG).show()
+//        }
+
         if (activity is MainActivity && viewModel.isPlaceSaved()) {
             val place = viewModel.getSavedPlace()
             val intent = Intent(context, WeatherActivity::class.java).apply {
@@ -38,7 +49,22 @@ class PlaceFragment : Fragment() {
             startActivity(intent)
             activity?.finish()
             return
-        }
+        } //else if (activity is MainActivity && !(placeName.isNullOrEmpty())) {
+//            viewModel.searchPlaces(placeName)
+//            updatePlaces()
+//            val place = viewModel.placeList[0]
+//            val intent = Intent(context, WeatherActivity::class.java).apply {
+//                putExtra("place_name", placeName)
+//                putExtra("location_lng", place.location.lng)
+//                putExtra("location_lat", place.location.lat)
+//            }
+//
+//            /Toast.makeText(context, place.location.lat, Toast.LENGTH_LONG).show()
+//            startActivity(intent)
+//            activity?.finish()
+//            return
+//        }
+
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
         adapter = PlaceAdapter(this, viewModel.placeList)
@@ -54,6 +80,10 @@ class PlaceFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         }
+        updatePlaces()
+    }
+
+    private fun updatePlaces() {
         viewModel.placeLiveData.observe(viewLifecycleOwner, Observer{ result ->
             val places = result.getOrNull()
             if (places != null) {
